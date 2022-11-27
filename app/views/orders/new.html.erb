@@ -1,0 +1,40 @@
+<h1>New order</h1>
+
+<%= form_for @order, method: :post do |f| -%>
+  <p>
+    <%= f.label :name, 'Client name' -%>
+    <%= f.text_field :name -%>
+  </p>
+
+  <p>
+    <%= f.label :restaurant_id -%>
+    <%= f.collection_select :restaurant_id, Restaurant.order(:name), :id, :name -%>
+    <em>&rarr; Este campo es en realidad un campo virtual (ver modelo)</em>
+  </p>
+
+  <%# Etapa 0: no se ha seleccionado un restaurant, no se muestra el combo para seleccionar el menu %>
+  <% if @order.restaurant %>
+    <%# Etapa 1: se ha seleccionado un restaurant, ya se puede mostrar el combo para seleccionar el menu. %>
+    <p>
+      <%= f.label :menu_id -%>
+      <%= f.collection_select :menu_id, @order.restaurant.menus.order(:day), :id, :to_s -%>
+    </p>
+
+    <% if @order.menu %>
+      <%# Etapa 2: se ha seleccionado un restaurant y un menu, ya se puede mostrar el combo para seleccionar el plato. %>
+      <p>
+        <%= f.label :dish_id -%>
+        <%= f.collection_select :dish_id, @order.menu.dishes.order(:name), :id, :to_s, prompt: true -%>
+      </p>
+
+      <p>
+        <%= f.label :comments -%>
+        <%= f.text_area :comments -%>
+      </p>
+    <% end %>
+  <% end %>
+
+  <p>
+    <%= f.submit 'Create order' -%>
+  </p>
+<%- end -%>
