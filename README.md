@@ -1,24 +1,27 @@
-# README
+# App rails de ejemplo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Esta app muestra una forma sencilla de implementar un formulario con
+pasos que dependen de la información ingresada en los pasos anteriores,
+utilizando una sola vista y un solo controlador para esto.
 
-Things you may want to cover:
+## Preparación
 
-* Ruby version
+Instalar dependencias, preparar base de datos y cargar datos iniciales (seed):
 
-* System dependencies
+```bash
+$ bin/setup
+```
 
-* Configuration
+## Prueba
 
-* Database creation
+Correr el servidor de Rails y navegar a [http://localhost:3000](http://localhost:3000):
 
-* Database initialization
+```bash
+$ bin/rails server
+```
 
-* How to run the test suite
+## Puntos importantes del código
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* `OrdersController`.
+* Vista para `OrdersController#new`.
+* Modelo `Order`.
